@@ -3,6 +3,10 @@ description: Suggest a small task for a first-time contributor.
 title: "docs: "
 labels: ["good first issue", beginner, needs-triage]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        To work on an existing issue, comment with `/claim` once it is ready and wait for assignment. Use `/unclaim` to give it back. For the standing profile task, use issue #1 without claiming it.
   - type: textarea
     id: task
     attributes:

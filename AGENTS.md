@@ -4,10 +4,10 @@ Apply these rules whenever you help a student contribute. Read the assigned issu
 
 ## Hard rules
 
-- Work on one assigned GitHub issue at a time. Open one PR per issue.
+- Comment `/claim` on an available issue and wait for assignment. Work on one assigned issue at a time and use `/unclaim` to release it. Open one PR per issue. For standing profile issue #1, skip assignment and add only your own profile.
 - Branch from current upstream `main`. The branch must match `<type>/<issue-number>-<short-slug>`, for example `feat/12-event-countdown`. Use the actual GitHub issue number.
 - Allowed types are `feat`, `fix`, `docs`, `style`, `refactor`, `test`, and `chore`.
-- Commit subjects and PR titles must use `<type>: <short summary>`. Reference `#<n>` in the commit subject or body, and include `Closes #<n>` in the PR body.
+- Commit subjects and PR titles must use `<type>: <short summary>`. Reference `#<n>` in the commit subject or body, and include `Closes #<n>` in the PR body. Use `Refs #1` for the standing profile issue in both the PR and any commit that references it.
 - Edit only files required by the assigned issue. Leave unrelated files and other students' profiles alone. Preserve the lockfile unless the issue explicitly needs a dependency change.
 - Use the student's configured Git identity. Never add AI author, co-author, or generated-by credit to Git history, PR metadata, or release notes. List tools used only in the student PR template's AI tools disclosure.
 - Explain the plan, changed files, verification, and one relevant concept in plain language so the student can explain the work themselves.
@@ -45,8 +45,8 @@ Apply these rules whenever you help a student contribute. Read the assigned issu
 
 ## Before the PR
 
-- [ ] Actual issue number appears in the branch, commit, and `Closes #<n>` in the PR.
+- [ ] Actual issue number appears in the branch, commit, and PR reference (`Closes #<n>` or `Refs #1` for profiles).
 - [ ] The diff meets the issue's acceptance criteria and contains only scoped changes.
-- [ ] `npm run lint`, `npm run typecheck`, and `npm run build` passed locally.
+- [ ] `npm run lint`, `npm run typecheck`, `npm run validate:data`, and `npm run build` passed locally.
 - [ ] The affected flow was tried locally. UI changes include screenshots in the PR.
 - [ ] The student can explain the behaviour, checks, and any limits. The PR lists the AI tools used.

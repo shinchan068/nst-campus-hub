@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "username",
+    "name",
+    "program",
+    "year",
+    "bio",
+    "skills",
+    "demo"
+  ],
+  "properties": {
+    "username": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 39
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "program": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "bio": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true
+    },
+    "demo": {
+      "type": "boolean"
+    }
+  }
+}

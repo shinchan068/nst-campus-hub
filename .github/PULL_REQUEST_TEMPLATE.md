@@ -2,7 +2,7 @@
 
 <!-- Summarise what the reader will see or what the repo now does. -->
 
-Closes #<n>
+<!-- Write Closes #<n> for a claimed issue. For the standing profile issue use Refs #1 in your PR and commits so it stays open. -->
 
 ## How I checked it
 
@@ -18,8 +18,8 @@ Closes #<n>
 
 ## Checklist
 
-- [ ] The branch includes my issue number, the title uses a Conventional Commit prefix, and I replaced `Closes #<n>`.
-- [ ] The diff stays within one assigned issue.
-- [ ] `npm run lint`, `npm run typecheck`, and `npm run build` passed.
+- [ ] The branch includes my issue number, the title uses a Conventional Commit prefix, and I added the correct issue reference (`Closes #<n>` or `Refs #1` for profiles).
+- [ ] The diff stays within one issue.
+- [ ] `npm run lint`, `npm run typecheck`, `npm run validate:data`, and `npm run build` passed.
 - [ ] I included screenshots for UI changes or marked them N/A.
 - [ ] I listed the AI tools used and can explain the changes.

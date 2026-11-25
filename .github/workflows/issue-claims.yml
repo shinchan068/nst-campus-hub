@@ -1,0 +1,39 @@
+name: Issue claims
+
+on:
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '23 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+env:
+  MAX_OPEN_CLAIMS: ${{ vars.MAX_OPEN_CLAIMS || '1' }}
+  STALE_AFTER_DAYS: ${{ vars.STALE_AFTER_DAYS || '5' }}
+  WARNING_GRACE_DAYS: ${{ vars.WARNING_GRACE_DAYS || '2' }}
+
+jobs:
+  claims:
+    name: Manage issue claims
+    if: >-
+      github.event_name != 'issue_comment' ||
+      (!github.event.issue.pull_request && github.event.comment.user.type == 'User' &&
+       (contains(github.event.comment.body, '/claim') || contains(github.event.comment.body, '/unclaim')))
+    concurrency:
+      group: classroom-issue-claims
+      queue: max
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const { manageClaims } = await import('${{ github.workspace }}/.github/scripts/issue-claims.mjs');
+            await manageClaims({ github, context, core });

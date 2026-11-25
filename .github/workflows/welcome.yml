@@ -1,0 +1,47 @@
+name: Welcome contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    if: github.event.sender.type == 'User'
+    runs-on: ubuntu-latest
+    steps:
+      # This job reads event metadata and posts a comment. It never checks out PR code.
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const repo = context.repo;
+            const pull = context.eventName === 'pull_request_target';
+            const item = pull ? context.payload.pull_request : context.payload.issue;
+            const login = item.user.login;
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${repo.owner}/${repo.repo} is:${pull ? 'pr' : 'issue'} author:${login} created:<=${item.created_at}`,
+              sort: 'created',
+              order: 'asc',
+              per_page: 10,
+            });
+            if (search.data.items.some((entry) => entry.number < item.number)) return;
+
+            const params = { ...repo, issue_number: item.number };
+            const marker = '<!-- classroom-welcome -->';
+            const comments = await github.paginate(github.rest.issues.listComments, params);
+            if (comments.some((comment) => comment.user.type === 'Bot' && comment.body.startsWith(marker))) return;
+
+            const guide = 'https://nst-campus-hub.vercel.app/first-time-contributor';
+            const contributing = `https://github.com/${repo.owner}/${repo.repo}/blob/${context.payload.repository.default_branch}/CONTRIBUTING.md`;
+            const next = pull
+              ? 'Fill out the verification checklist, then watch for feedback and reply in this PR.'
+              : 'If you’d like to work on an available issue, comment with \`/claim\` once it’s ready for contributors.';
+            await github.rest.issues.createComment({
+              ...params,
+              body: `${marker}\nWelcome to NST Campus Hub, @${login}! Thanks for opening your first ${pull ? 'pull request' : 'issue'} here. ${next}\n\n[Contribution rules](${contributing}) · [First-time contributor guide](${guide})`,
+            });

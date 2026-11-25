@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "validate:data": "node scripts/validate-data.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -26,6 +27,8 @@
     "@types/node": "^24.19.3",
     "@types/react": "^19.3.2",
     "@types/react-dom": "^19.3.0",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4.3.5",

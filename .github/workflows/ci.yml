@@ -3,10 +3,12 @@ name: CI
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
   workflow_dispatch:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   quality:
@@ -22,3 +24,40 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+
+  data:
+    name: Data validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run validate:data
+
+  title:
+    name: PR title lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the Conventional Commit title and standing issue reference
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { title, body, commits } = context.payload.pull_request;
+            if (!/^(feat|fix|docs|style|refactor|test|chore)(\([a-zA-Z0-9/_-]+\))?!?: \S.*$/u.test(title)) {
+              core.setFailed('Rename your PR with an allowed Conventional Commit prefix, for example: feat: add a Git learning resource. Allowed types: feat, fix, docs, style, refactor, test, chore.');
+            }
+            const repo = context.repo;
+            const closesProfile = new RegExp(
+              `\\b(?:close[sd]?|fix(?:e[sd])?|resolv(?:e[sd]?))[:\\s]+(?:(?:${repo.owner}/${repo.repo})?#1(?!\\d)|https://github\\.com/${repo.owner}/${repo.repo}/issues/1(?!\\d))`,
+              'i',
+            );
+            const messages = commits > 0 ? await github.paginate(github.rest.pulls.listCommits, {
+              ...repo, pull_number: context.issue.number, per_page: 100,
+            }) : [];
+            if ([body, ...messages.map(({ commit }) => commit.message)].some((text) => closesProfile.test(text ?? ''))) {
+              core.setFailed('Issue #1 is the standing profile task. Use Refs #1 in the PR description and commits so it stays open for other students.');
+            }

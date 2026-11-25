@@ -2,9 +2,13 @@
 
 You will use a GitHub issue to track one task and a pull request (PR) to propose your solution. A fork is your GitHub copy of the repository. A clone is the copy on your computer. Use one active issue at a time and open one PR per issue.
 
-## 1. Pick an issue and ask for assignment
+## 1. Pick and claim an issue
 
-Open the repository's **Issues** tab and look for an unassigned issue. If you're new, start with `good first issue`. Read the acceptance criteria and check the conversation for anyone already working on it. Comment with your intent and wait for a maintainer to assign you. Use the actual GitHub issue number throughout, even if it differs from the number in a draft filename.
+Start with an unassigned [good first issue](https://github.com/shinchan068/nst-campus-hub/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+no%3Aassignee). Read its acceptance criteria, then leave a comment containing only `/claim`. Wait for the bot to confirm assignment before starting. The classroom limit is one open assigned issue per student. Use `/unclaim` to give yours back.
+
+If you have neither an open linked PR nor a progress comment on your issue for five days, the bot posts a warning. You have two more days from the warning to comment with an update or link your PR before your assignment is released. The bot runs the check daily.
+
+The [standing profile issue #1](https://github.com/shinchan068/nst-campus-hub/issues/1) is open to everyone without an assignment. Add your own file and put `Refs #1` in your PR instead of a closing keyword. It does not count against your claim limit.
 
 ## 2. Fork, clone, and make a branch
 
@@ -37,11 +41,12 @@ The branch pattern is `git checkout -b <type>/<issue-number>-<short-slug>`. Use 
 
 Pass the issue and [AGENTS.md](AGENTS.md) to your AI tool. Ask it to explain which files it will touch. For data-only tasks, use the matching `_example.json` and add your own file. Keep your diff within the issue's scope. Leave other people's profiles alone and avoid lockfile churn. Only change `package-lock.json` when the issue genuinely requires a dependency change. Keep credentials and personal information out of the repository.
 
-Use `npm run dev` to try the change. Before pushing, run both required checks and the TypeScript check used by CI:
+Use `npm run dev` to try the change. Before pushing, run the checks used by CI:
 
 ```sh
 npm run lint
 npm run typecheck
+npm run validate:data
 npm run build
 git status --short
 git diff
@@ -60,7 +65,7 @@ A Conventional Commit starts with `<type>: <short summary>`. Put the issue refer
 
 ## 4. Open one pull request
 
-Choose the official repository's `main` as the base and your fork's issue branch as the head. Use a Conventional Commit title such as `feat: show time until the next event (#12)`. Replace the PR template's placeholder with a line such as `Closes #12` so GitHub can close the issue when your PR merges. Describe the change, how you checked it, and which AI tools you used. Attach screenshots for UI changes. Use a draft PR if you're still working.
+Choose the official repository's `main` as the base and your fork's issue branch as the head. Use a Conventional Commit title such as `feat: show time until the next event (#12)`. Replace the PR template's placeholder with a line such as `Closes #12` so GitHub can close the issue when your PR merges. For the standing profile issue, use `Refs #1` in the PR and in any commit that mentions the issue. Describe the change, how you checked it, and which AI tools you used. Attach screenshots for UI changes. Use a draft PR if you're still working.
 
 ## 5. Respond to review and keep your fork synced
 
@@ -76,3 +81,7 @@ git push origin main
 ```
 
 If a reviewer requests an update on an open PR, `git checkout <issue-branch>` and `git rebase upstream/main`. Resolve conflicts by editing the affected files, then stage those files and run `git rebase --continue`. Use `git rebase --abort` if you need to return to the starting state. Rerun the checks. If the topic branch was already published to your fork, use `git push --force-with-lease` only on your own topic branch after confirming nobody else has added commits to it.
+
+## Maintainer setup
+
+Repository Actions variables `MAX_OPEN_CLAIMS`, `STALE_AFTER_DAYS`, and `WARNING_GRACE_DAYS` override the classroom defaults in [the issue claims workflow](.github/workflows/issue-claims.yml). When a backlog prerequisite lands, remove the dependent issue’s `blocked` label and add `help wanted` so students can claim it.
