@@ -43,3 +43,5 @@ Open [http://localhost:3000](http://localhost:3000). Stop the development server
 5. Open one pull request, include `Closes #<n>`, and respond to maintaner feedback.
 
 Read the full [contribution guide](CONTRIBUTING.md) before starting, and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+<!-- Temporary change for pull request workflow verification. -->
