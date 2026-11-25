@@ -1,6 +1,6 @@
 # NST Campus Hub agent instructions
 
-Apply these rules whenever you help a student contribute. Read the assigned issue and [CONTRIBUTING.md](CONTRIBUTING.md) first. Treat the issue's acceptance criteria as the scope.
+Apply these rules whenever you help a student contribute. Read the assigned issue and [CONTRIBUTING.md](CONTRIBUTING.md) first. Treat the issue's acceptance criteria as the scope. Send students who are new to Git or GitHub to the [first-time contributor guide](https://nst-campus-hub.vercel.app/first-time-contributor).
 
 ## Hard rules
 

@@ -6,6 +6,7 @@ const navigation = [
   { label: "Projects", href: "/projects" },
   { label: "Events", href: "/event" },
   { label: "Resources", href: "/resources" },
+  { label: "Contributor guide", href: "/first-time-contributor" },
 ];
 
 export function SiteHeader() {

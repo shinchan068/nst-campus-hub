@@ -27,6 +27,7 @@ export default async function HomePage() {
             <Link href="/projects" className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Explore projects</Link>
             <Link href="/people" className="rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-primary hover:bg-secondary">Meet the students</Link>
           </div>
+          <Link href="/first-time-contributor" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">New here? Start here</Link>
         </div>
         <Image
           src={gitBranchesIllustration}

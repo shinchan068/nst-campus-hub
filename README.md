@@ -1,5 +1,7 @@
 # NST Campus Hub
 
+[First-time contributor guide](https://nst-campus-hub.vercel.app/first-time-contributor)
+
 NST Campus Hub is a demo open source repository for Newton School of Technology (NST) students. Practise the real workflow of picking an issue, creating a branch, making a commit, and opening a pull request. The site has a student directory, project showcase, campus events, and curated learning resources. The sample profiles, projects, and events are labelled **Demo**. The learning links are real.
 
 [Open the live demo](https://nst-campus-hub.vercel.app/)

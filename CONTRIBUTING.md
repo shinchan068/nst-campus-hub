@@ -1,5 +1,7 @@
 # Contributing to NST Campus Hub
 
+[First-time contributor guide](https://nst-campus-hub.vercel.app/first-time-contributor)
+
 You will use a GitHub issue to track one task and a pull request (PR) to propose your solution. A fork is your GitHub copy of the repository. A clone is the copy on your computer. Use one active issue at a time and open one PR per issue.
 
 ## 1. Pick an issue and ask for assignment
