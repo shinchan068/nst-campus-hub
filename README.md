@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Stop the development server with **Ctrl+C**. No database, API keys, or enviroment variables are required.
+Open [http://localhost:3000](http://localhost:3000). Stop the development server with **Ctrl+C**. No database, API keys, or environment variables are required.
 
 | Command | What it does |
 | --- | --- |
@@ -40,6 +40,6 @@ Open [http://localhost:3000](http://localhost:3000). Stop the development server
 2. Fork and clone the repository, then create a branch with the issue number.
 3. Give your AI tool the issue and [AGENTS.md](AGENTS.md). Review the change and make sure you can explain it.
 4. Run lint and build, then make a Conventional Commit and push your branch to your fork.
-5. Open one pull request, include `Closes #<n>`, and respond to maintaner feedback.
+5. Open one pull request, include `Closes #<n>`, and respond to maintainer feedback.
 
 Read the full [contribution guide](CONTRIBUTING.md) before starting, and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
